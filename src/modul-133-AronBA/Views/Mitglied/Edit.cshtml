@@ -1,0 +1,70 @@
+﻿@model modul_133_AronBA.Models.TblMitglied
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form method="post" action="Edit">
+    <div class="mb-3">
+        <label for="id" class="form-label">id</label>
+        <input type="text" class="form-control" id="id" aria-describedby="id" asp-for="Id" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label for="Vorname" class="form-label">Vorname</label>
+        <input type="text" class="form-control" id="Vorname" aria-describedby="Vorname" asp-for="Vorname">
+        <span asp-validation-for="Vorname" class="text-danger"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="Nachname" class="form-label">Nachname </label>
+        <input type="text" class="form-control" id="Nachname" aria-describedby="Nachname" asp-for="Nachname">
+        <span asp-validation-for="Nachname" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Geburtsdatum" class="form-label">Geburtsdatum </label>
+        <input type="date" class="form-control" id="Geburtsdatum" aria-describedby="Geburtsdatum" asp-for="Gebursdatum">
+        <span asp-validation-for="Gebursdatum" class="text-danger"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="Mail" class="form-label">Mail </label>
+        <input type="email" class="form-control" id="Mail" aria-describedby="Mail" asp-for="Mail">
+        <span asp-validation-for="Mail" class="text-danger"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="AHV" class="form-label">AHV </label>
+        <input type="text" class="form-control" id="AHV" aria-describedby="AHV" asp-for="Ahv">
+                <span asp-validation-for="Ahv" class="text-danger"></span>
+
+    </div>
+     <div class="mb-3">
+        <label for="Trainer" class="form-label">Trainer </label>
+        <select class="form-select" id="Trainer" aria-label="Default select example" asp-for="Trainerid">
+            @foreach (var item in ViewBag.Trainer)
+            {
+                <option value="@item.Id">@item.Vorname @item.Nachname</option>
+            }
+            
+         
+        </select>
+      
+
+    </div>
+    <div class="mb-3">
+        <label for="Beginn" class="form-label">Beginn </label>
+        <input type="date" class="form-control" id="Beginn" aria-describedby="Beginn" asp-for="MitgliedschaftAnfang">
+        <span asp-validation-for="MitgliedschaftAnfang" class="text-danger"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="Ende" class="form-label">Ende </label>
+        <input type="date" class="form-control" id="Ende" aria-describedby="Ende" asp-for="MitgliedschaftEnde">
+        <span asp-validation-for="MitgliedschaftEnde" class="text-danger"></span>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ändern</button>
+    <button type="submit" class="btn btn-danger" asp-action="delete" asp-controller="Mitglied">Löschen</button>
+</form>

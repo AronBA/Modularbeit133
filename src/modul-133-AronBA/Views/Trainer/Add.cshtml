@@ -1,0 +1,35 @@
+﻿@model modul_133_AronBA.Models.TblTrainer
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form method="post" action="Add">
+    <div class="mb-3">
+        <label for="Benutzername" class="form-label">Benutzername</label>
+        <input type="text" class="form-control" id="Benutzername" aria-describedby="Benutzername" asp-for="Benutzername">
+        <span asp-validation-for="Benutzername" class="text-danger"></span>
+       
+    </div>
+    <div class="mb-3">
+        <label for="Passwort" class="form-label">Passwort </label>
+        <input type="password" class="form-control" id="Passwort" aria-describedby="Passwort" asp-for="Passwort">
+        <span asp-validation-for="Passwort" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Vorname" class="form-label">Vorname </label>
+        <input type="text" class="form-control" id="Vorname" aria-describedby="Vorname" asp-for="Vorname">
+        <span asp-validation-for="Vorname" class="text-danger"></span>
+      
+    </div>
+    <div class="mb-3">
+        <label for="Nachname" class="form-label">Nachname </label>
+        <input type="text" class="form-control" id="Nachname" aria-describedby="Nachname" asp-for="Nachname">
+        <span asp-validation-for="Nachname" class="text-danger"></span>
+     
+    </div>
+   
+  
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

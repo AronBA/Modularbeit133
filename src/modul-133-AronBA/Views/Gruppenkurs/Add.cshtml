@@ -1,0 +1,48 @@
+﻿@model modul_133_AronBA.Models.TblGruppenkur
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<form method="post" action="Add">
+   
+    
+    <div class="mb-3">
+        <label for="Bezeichnung" class="form-label">Bezeichnung </label>
+        <input type="text" class="form-control" id="Bezeichnung" aria-describedby="Bezeichnung" asp-for="Bezeichnung">
+        <span asp-validation-for="Bezeichnung" class="text-danger"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="Beschreibung" class="form-label">Beschreibung </label>
+        <input type="text" class="form-control" id="Beschreibung" aria-describedby="Beschreibung" asp-for="Beschreibung">
+        <span asp-validation-for="Beschreibung" class="text-danger"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="Beginn" class="form-label">Beginn </label>
+        <input type="datetime-local" class="form-control" id="Beginn" aria-describedby="Beginn" asp-for="Beginn">
+        <span asp-validation-for="Beginn" class="text-danger"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="Ende" class="form-label">Ende </label>
+        <input type="datetime-local" class="form-control" id="Ende" aria-describedby="Ende" asp-for="Ende">
+        <span asp-validation-for="Ende" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Trainer" class="form-label">Trainer </label>
+        <select class="form-select" id="Trainer" aria-label="Default select example" asp-for="TrainerId">
+            @foreach (var item in ViewBag.Trainer)
+            {
+                <option value="@item.Id">@item.Vorname @item.Nachname</option>
+            }
+
+
+        </select>
+      
+
+    </div>
+    
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

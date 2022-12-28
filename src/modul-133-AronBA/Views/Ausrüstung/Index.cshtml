@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Ausrüstung";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Ausrüstung</h1>
+    
+    <a class="btn btn-success" asp-area="" asp-controller="Ausrüstung" asp-action="add">neue Ausrüstung </a>
+    @if (TempData["message"] != null || TempData["error"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["message"]
+                @TempData["error"]
+                     </div>
+        }
+    <table class="table">
+      
+            <tr>
+            <th>artNr</th>
+            <th>bezeichnung</th>
+            <th>gewichtKg</th>
+            <th>anzahl</th>
+            <th>aktion</th>
+         
+
+        </tr>
+     
+       
+            @foreach (var item in ViewBag.Ausruestung)
+    {
+        <tr>
+                <td>@item.ArtNr</td>
+                <td>@item.Bezeichnung</td>
+                <td>@item.GewichtKg</td>
+                <td>@item.Anzahl</td>
+                <td><a href="Ausrüstung/Edit/@item.ArtNr" class="btn btn-secondary">Bearbeiten</a></td>
+ 
+        </tr>
+    }
+      
+        
+        
+       
+    
+   
+    </table>
+</div>

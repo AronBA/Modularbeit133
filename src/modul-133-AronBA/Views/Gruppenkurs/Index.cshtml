@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Gruppenkurs";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Gruppenkurs</h1>
+
+    <a class="btn btn-success" asp-area="" asp-controller="Gruppenkurs" asp-action="add">neuer Kurs </a>
+     @if (TempData["message"] != null || TempData["error"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["message"]
+                @TempData["error"]
+                     </div>
+        }
+    <table class="table">
+
+        <tr>
+            <th>id</th>
+            <th>Bezeichnung</th>
+            <th>Beginn</th>
+            <th>Ende</th>
+            <th>Beschreibung</th>
+            <th>Trainer</th>
+
+
+        </tr>
+        @foreach (var item in ViewBag.Gruppenkurs)
+        {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Bezeichnung</td>
+                    <td>@item.Beginn</td>
+                    <td>@item.Ende</td>
+                    <td>@item.Beschreibung</td>
+
+                    <td>@item.Trainer.Vorname @item.Trainer.Nachname</td>
+
+                    <td><a href="Gruppenkurs/Edit/@item.Id" class="btn btn-secondary">Bearbeiten</a></td>
+
+                </tr>
+
+
+
+        }
+    </table>
+</div>

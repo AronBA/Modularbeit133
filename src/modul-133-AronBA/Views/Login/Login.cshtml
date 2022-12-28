@@ -1,0 +1,32 @@
+﻿@model modul_133_AronBA.Models.TblTrainer
+@{
+    Layout = "_Login";
+    ViewData["Title"] = "Login";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Login</h1>
+    
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["Message"]
+                     </div>
+        }
+   
+  
+    <form action="Login" method="post">
+        <div class="form-group">
+            <label for="Benutzername">Benutzername</label>
+            <input type="text" class="form-control" id="Benutzername" aria-describedby="Benutzername" placeholder="Benutzername" asp-for="Benutzername">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="Passwort">Passwort</label>
+            <input type="password" class="form-control" id="Passwort" placeholder="Passwort" asp-for="Passwort">
+        </div>
+     
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>

@@ -1,0 +1,124 @@
+﻿
+@{
+    
+    ViewData["Title"] = "Home";
+
+}
+
+<div class="jumbotron">
+  <h1 class="display-4">Dashboard</h1>
+  <p class="lead">Willkommen auf dem Dashboard @User.FindFirst(System.Security.Claims.ClaimTypes.Surname).Value @User.FindFirst(System.Security.Claims.ClaimTypes.GivenName).Value <br />
+      Hier siehst du den Schnellzugriff sowie alle Kurse für welche du verantwortlich bist. <br />
+      Ausserdem Siehst du unten Mitglieder welche keinen Trainer mehr haben. Diesen solltest du manuel einen neuen zuweisen.      
+  </p>
+  <hr class="my-4">
+   
+  <p class="lead">
+       <h4></h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <a class="btn btn-success btn-lg" asp-area="" asp-controller="Mitglied" asp-action="add">neues Mitglied </a>
+                </div>
+                <div class="col-sm">
+                    <a class="btn btn-success btn-lg" asp-area="" asp-controller="Ausrüstung" asp-action="add">neue Ausrüstung </a>
+                </div>
+
+                <div class="col-sm">
+                    <a class="btn btn-success btn-lg" asp-area="" asp-controller="Gruppenkurs" asp-action="add">neuer Gruppenkurs </a>
+
+                </div>
+            </div>
+        </div>
+  </p>
+   <hr class="my-4">
+   <div class="row">
+        <div class="col">
+
+    <h2 class="sub-header">Kurse <span class="badge bg-secondary">@ViewBag.Gruppenkurs.Count</span></h2>
+    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-md-1">Bezeichnung</th>
+                    <th class="col-md-2">Beginn</th>
+                    <th class="col-md-2">Ende</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var Gruppenkurs in ViewBag.Gruppenkurs)
+                {
+                    <tr>
+                        <td class="col-md-1">@Gruppenkurs.Bezeichnung</td>
+                        <td class="col-md-2">@Gruppenkurs.Beginn</td>
+                        <td class="col-md-2">@Gruppenkurs.Ende</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+       </div>
+     <div class="col">
+            <h2 class="sub-header">Mitglieder <span class="badge bg-secondary">@ViewBag.Mitglieder.Count</span></h2>
+    <div class="table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-md-1">Vorname</th>
+                    <th class="col-md-2">Nachname</th>
+                    <th class="col-md-2">Mail</th>
+                </tr>
+            </thead>
+            <tbody>
+                        @foreach (var Mitglieder in ViewBag.Mitglieder)
+                {
+                    <tr>
+                        <td class="col-md-2">@Mitglieder.Vorname</td>
+                        <td class="col-md-2">@Mitglieder.Nachname</td>
+                        <td class="col-md-2">@Mitglieder.Mail</td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+     </div>
+      <h2 class="sub-header">Mitglieder ohne Trainer <span class="badge bg-danger">@ViewBag.TblMitgliedsDeleted.Count</span></h2>
+     <div class="table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-md-1">Vorname</th>
+                    <th class="col-md-2">Nachname</th>
+                    <th class="col-md-2">Mail</th>
+                    <th class="col-md-2">Aktion</th>
+                </tr>
+            </thead>
+            <tbody>
+                        @foreach (var Mitglieder in ViewBag.TblMitgliedsDeleted)
+                {
+                    <tr class="table-danger">
+                        <td class="col-md-2">@Mitglieder.Vorname</td>
+                        <td class="col-md-2">@Mitglieder.Nachname</td>
+                         <td class="col-md-2">@Mitglieder.Mail</td>
+                        <td class="col-md-2"> <a class="btn btn-success" asp-action="Edit" asp-controller="Mitglied" asp-route-id="@Mitglieder.Id">Bearbeiten</a></td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+     </div>  
+</div>
+</div>
+
+
+
+
+
+    
+
+
+
+
+
