@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Trash";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Trash</h1>
+    
+     @if (TempData["message"] != null || TempData["error"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["message"]
+                @TempData["error"]
+                     </div>
+        }
+   <table class="table">
+       
+        <tr>
+            <th>id</th>
+            <th>benutzername</th>
+            <th>vorname</th>
+            <th>nachname</th>
+           @foreach (var item in ViewBag.Trainer)
+    {
+        <tr>
+             <td>@item.Id</td>
+             <td>@item.Benutzername</td>
+             <td>@item.Vorname</td>
+             <td>@item.Nachname</td>
+          
+         
+            
+             <td><a asp-action="Restore" asp-controller="Trash" asp-route-id="@item.Id">Restore</a></td>
+ 
+        </tr>
+        
+       
+    
+    }
+       
+
+        </tr>
+    </table>
+</div>
