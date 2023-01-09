@@ -3,8 +3,14 @@
 }
 
 <div class="text-center">
+
     <h1 class="display-4">Mitglieder</h1>
-    
+    <form asp-controller="Mitglied" asp-action="Index">
+    <p>
+        Suche: <input type="text" name="SearchString" />
+        <input class="btn btn-primary" type="submit" value="Search🔍"> </>
+    </p>
+</form>
     <a class="btn btn-success" asp-area="" asp-controller="Mitglied" asp-action="add">neues Mitglied </a>
     @if (TempData["message"] != null || TempData["error"] != null)
         {

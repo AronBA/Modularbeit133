@@ -21,10 +21,19 @@ namespace modul_133_AronBA.Controllers
         }
 
      
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
            
-            ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).ToListAsync();
+            
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString) || s.Nachname.Contains(searchString)).ToListAsync();
+
+            }
+            else
+            {
+                ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).ToListAsync();
+            }
             return View();
         }
 
