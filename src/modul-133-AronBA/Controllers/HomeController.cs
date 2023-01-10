@@ -25,7 +25,7 @@ namespace modul_133_AronBA.Controllers
             
             ViewBag.Gruppenkurs = await _dbcontext.TblGruppenkurs.Where(x => x.TrainerId == int.Parse(userid)).ToListAsync();
             ViewBag.TblMitgliedsDeleted = await _dbcontext.TblMitglieds.Include(m => m.Trainer).Where(t => t.Trainer.Deleted == true).ToListAsync();
-            ViewBag.Mitglieder = await _dbcontext.TblMitglieds.Where(x => x.Trainerid == int.Parse(userid)).ToListAsync();
+            ViewBag.Mitglieder = await _dbcontext.TblMitglieds.Where(x => x.Trainerid == int.Parse(userid)).Take(20).ToListAsync();
             return View();
         }
         [HttpGet]

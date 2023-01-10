@@ -27,12 +27,12 @@ namespace modul_133_AronBA.Controllers
             
             if (!String.IsNullOrEmpty(searchString))
             {
-                ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString) || s.Nachname.Contains(searchString)).ToListAsync();
+                ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString) || s.Nachname.Contains(searchString)).Take(1000).ToListAsync();
 
             }
             else
             {
-                ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).ToListAsync();
+                ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Take(1000).ToListAsync();
             }
             return View();
         }
