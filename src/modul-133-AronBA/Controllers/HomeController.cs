@@ -22,10 +22,15 @@ namespace modul_133_AronBA.Controllers
         public async Task<IActionResult> Index()
         {   
             var userid = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+
             
-            ViewBag.Gruppenkurs = await _dbcontext.TblGruppenkurs.Where(x => x.TrainerId == int.Parse(userid)).ToListAsync();
+            ViewBag.Gruppenkurs = await _dbcontext.TblGruppenkurs.Where(x => x.TrainerId == int.Parse(userid)).Take(5).ToListAsync();
             ViewBag.TblMitgliedsDeleted = await _dbcontext.TblMitglieds.Include(m => m.Trainer).Where(t => t.Trainer.Deleted == true).ToListAsync();
-            ViewBag.Mitglieder = await _dbcontext.TblMitglieds.Where(x => x.Trainerid == int.Parse(userid)).Take(20).ToListAsync();
+            ViewBag.Mitglieder = await _dbcontext.TblMitglieds.Where(x => x.Trainerid == int.Parse(userid)).Take(5).ToListAsync();
+
+            ViewBag.MitgliederCount =  _dbcontext.TblMitglieds.Count(x => x.Trainerid == int.Parse(userid));
+            ViewBag.GruppenkursCount = _dbcontext.TblGruppenkurs.Count(x => x.TrainerId == int.Parse(userid));
+            ViewBag.TblMitgliedsDeletedCount = _dbcontext.TblMitglieds.Include(m => m.Trainer).Count(t => t.Trainer.Deleted == true);
             return View();
         }
         [HttpGet]
