@@ -21,13 +21,33 @@ namespace modul_133_AronBA.Controllers
         }
 
      
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int FilterOption)
         {
            
             
             if (!String.IsNullOrEmpty(searchString))
             {
-                ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString) || s.Nachname.Contains(searchString)).Take(1000).ToListAsync();
+                switch (FilterOption)
+                {
+                    case 1:
+                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString)).Take(1000).ToListAsync();
+                        break;
+
+                        case 2:
+                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Nachname.Contains(searchString)).Take(1000).ToListAsync();
+                        break;
+
+                    case 3:
+                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Mail.Contains(searchString)).Take(1000).ToListAsync();
+                        break;
+
+                    default:
+                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString) || s.Mail.Contains(searchString) || s.Nachname.Contains(searchString)).Take(1000).ToListAsync();
+
+                        break;
+                }
+
+
 
             }
             else

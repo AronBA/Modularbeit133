@@ -6,10 +6,16 @@
 
     <h1 class="display-4">Mitglieder</h1>
     <form asp-controller="Mitglied" asp-action="Index">
-    <p>
-        Suche: <input type="text" name="SearchString" />
-        <input class="btn btn-primary" type="submit" value="Search🔍"> </>
-    </p>
+        <p>
+            Suche: <input type="text" name="SearchString" />
+               <select class="form-select" aria-label="Filter" name="FilterOption">
+                  <option selected>Filter</option>
+                  <option value="1">Vorname</option>
+                  <option value="2">Nachname</option>
+                  <option value="3">Mail</option>
+                </select>
+            <input class="btn btn-primary" type="submit" value="Search🔍"> </>
+        </p>
 </form>
     <a class="btn btn-success" asp-area="" asp-controller="Mitglied" asp-action="add">neues Mitglied </a>
     @if (TempData["message"] != null || TempData["error"] != null)
