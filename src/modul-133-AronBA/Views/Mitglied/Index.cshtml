@@ -5,18 +5,29 @@
 <div class="text-center">
 
     <h1 class="display-4">Mitglieder</h1>
-    <form asp-controller="Mitglied" asp-action="Index">
-        <p>
-            Suche: <input type="text" name="SearchString" />
-               <select class="form-select" aria-label="Filter" name="FilterOption">
-                  <option selected>Filter</option>
-                  <option value="1">Vorname</option>
-                  <option value="2">Nachname</option>
-                  <option value="3">Mail</option>
-                </select>
-            <input class="btn btn-primary" type="submit" value="Search🔍"> </>
-        </p>
+    <nav class="navbar navbar-light bg-light">
+ <form asp-controller="Mitglied" asp-action="Index" class="form-inline">
+       
+           
+               
+     
+     <div class="input-group">
+     
+      <input type="text" name="SearchString" />
+        <select class="form-select" aria-label="Filter" name="FilterOption">
+                          <option selected>Filter</option>
+                          <option value="1">Vorname</option>
+                          <option value="2">Nachname</option>
+                          <option value="3">Mail</option>
+                        </select>
+                    <input class="btn btn-primary" type="submit" value="Search🔍"> </>    
+                
+                </div>
+      
 </form>
+
+</nav>
+    
     <a class="btn btn-success" asp-area="" asp-controller="Mitglied" asp-action="add">neues Mitglied </a>
     @if (TempData["message"] != null || TempData["error"] != null)
         {
@@ -55,5 +66,28 @@
         </tr>
     }
     </table>
-    <a href=""
+   <nav aria-label="Page navigation example">
+       <ul class="pagination">
+           <li class="page-item"><a class="page-link"  asp-action="Index" asp-controller="Mitglied" asp-route-page="1">&laquo;</a></li>
+
+            @{
+                int page = ViewBag.Page;
+             
+                int last = (int)Math.Ceiling(Decimal.Divide(ViewBag.Count, 8));
+                for (int i = page - 2; i < page + 3; i++)
+                { 
+                    if(i == page)
+                        {
+                            <li class="page-item active"><a class="page-link"  asp-action="Index" asp-controller="Mitglied" asp-route-page="@i">@i</a></li>
+                        continue;
+                    } else if (i >= 1 && i < last + 1){
+                            <li class="page-item"><a class="page-link"  asp-action="Index" asp-controller="Mitglied" asp-route-page="@i">@i</a></li>   
+
+                    }                     
+                }
+            }
+           <li class="page-item"><a class="page-link"  asp-action="Index" asp-controller="Mitglied" asp-route-page="@last">&raquo;</a></li>
+
+       </ul>
+   </nav>
 </div>

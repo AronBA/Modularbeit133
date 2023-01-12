@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using modul_133_AronBA.Data;
 using modul_133_AronBA.Models;
 using System.Diagnostics;
-using modul_133_AronBA.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 
 namespace modul_133_AronBA.Controllers
 {
@@ -21,38 +21,47 @@ namespace modul_133_AronBA.Controllers
         }
 
      
-        public async Task<IActionResult> Index(string searchString, int FilterOption)
+        public async Task<IActionResult> Index(string searchString, int FilterOption, int page = 1)
         {
-           
-            
+            var take = 8;
+            var skip = (page - 1) * take;
+          
+
+            ViewBag.Page = page;
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 switch (FilterOption)
                 {
                     case 1:
-                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString)).Take(1000).ToListAsync();
+                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString)).Skip(skip).Take(take).ToListAsync();
+                        ViewBag.LastCount = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString)).CountAsync();
                         break;
 
                         case 2:
-                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Nachname.Contains(searchString)).Take(1000).ToListAsync();
+                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Nachname.Contains(searchString)).Skip(skip).Take(take).ToListAsync();
+                        ViewBag.Count = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Nachname.Contains(searchString)).CountAsync();
+
                         break;
 
                     case 3:
-                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Mail.Contains(searchString)).Take(1000).ToListAsync();
+                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Mail.Contains(searchString)).Skip(skip).Take(take).ToListAsync();
+                        ViewBag.Count = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Mail.Contains(searchString)).CountAsync();
+
                         break;
 
                     default:
-                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString) || s.Mail.Contains(searchString) || s.Nachname.Contains(searchString)).Take(1000).ToListAsync();
+                        ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString) || s.Mail.Contains(searchString) || s.Nachname.Contains(searchString)).Skip(skip).Take(take).ToListAsync();
+                        ViewBag.Count = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Where(s => s.Vorname.Contains(searchString) || s.Mail.Contains(searchString) || s.Nachname.Contains(searchString)).CountAsync();
 
                         break;
                 }
-
-
-
             }
             else
             {
-                ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Take(1000).ToListAsync();
+                ViewBag.Mitglied = await _dbcontext.TblMitglieds.Include(t => t.Trainer).Skip(skip).Take(take).ToListAsync();
+                ViewBag.Count = await _dbcontext.TblMitglieds.Include(t => t.Trainer).CountAsync();
+
             }
             return View();
         }
